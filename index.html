@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="icon" href="img/icon.png" sizes="60x60" type="image/png">
+
+      <script src="js/vue.min.js"></script>
+      <script src="js/axios.min.js"></script>
+
+    <title>App Climatica</title>
+  </head>
+  
+<body>
+
+  <div id="app">
+
+      <div class="sidebar" :class="{active}">
+
+        <span class="logo"> Weather
+            
+                    <div class="toggle-btn" @click="toggle" v-if="isactive==true">
+                          <div class="menu" >
+                              <span class="line one"></span>
+                              <span class="line two"></span>
+                              <span class="line three"></span>
+                          </div>
+                    </div>
+ 
+        </span>
+
+        <custom-input @send="search" :code404="code404"></custom-input>
+       
+        <custom-data :buscar="buscar" @send="sendData" @coord="coord" @code404="code_404"></custom-data>
+
+          <span class="footer">Creado con  <span>❤</span>  por O'Brian</span>
+
+      </div>
+
+      <div class="contenedor">
+
+
+        <div class="items_info1">
+
+              <span class="title">Semana</span>
+                  <custom-prediction :buscar="buscar" :code404="code404">
+                  </custom-prediction>
+
+        </div>
+
+        <div class="items_maps1">
+
+                <span>UVI</span>
+                <svg  viewBox="0 0 300 300">
+                  <defs>
+                      <linearGradient  x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stop-color="rgb(237, 115, 199)" />
+                          <stop offset="100%" stop-color="rgb(255, 87, 152)" />
+                      </linearGradient>
+                  </defs>
+
+                  <circle class="stat" cx="150" cy="150" r="100" />
+                  <circle class="load" cx="150" cy="150" r="100" transform="rotate(-90 150 150)" :style="{strokeDashoffset:progresesBar(uvi)}" />
+                  <text class="num" stroke-width="3" x="150" y="55%" text-anchor="middle">{{uvi}}</text>
+                </svg>
+
+        </div>
+
+        <div class="items_info2">
+
+          <span class="title">Lo más destacado de hoy</span>
+          <div class="conten_highligths">
+
+            <custom-data-highlight :dato="dato" v-for="dato in datos" ></custom-data-highlight>
+
+          </div>
+
+        </div>
+
+          <div class="items_maps2" >
+
+                    <span>punto de rocío</span>
+                    <svg viewBox="0 0 300 300">
+                      <defs>
+                          <linearGradient x1="0%" y1="0%" x2="100%" y2="100%">
+                              <stop offset="0%" stop-color="rgb(237, 115, 199)" />
+                              <stop offset="100%" stop-color="rgb(255, 87, 152)" />
+                          </linearGradient>
+                      </defs>
+
+                      <circle class="stat" cx="150" cy="150" r="100" />
+                      <circle class="load" cx="150" cy="150" r="100" transform="rotate(-90 150 150)" :style="{strokeDashoffset:progresesBar(dew_point)}"/>
+                      <text class="num" stroke-width="3" x="150" y="55%" text-anchor="middle">
+                        {{dew_point}}</text>
+                  </svg>
+
+          </div>
+        
+      </div>
+      
+</div>
+
+ <script src="js/app.js"></script>
+
+</body>
+</html>
